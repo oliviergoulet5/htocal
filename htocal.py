@@ -2,22 +2,39 @@
 
 import csv
 from writeCalendar import writeToCalendar, save
-import sys
+from changeOption import changeOption
+from os import path
+import shutil
+import argparse
 
-def main(argv):
-    file_name = str(argv)
-    with open(file_name, mode = "r") as file:
-        csvFile = csv.DictReader(file)
+parser = argparse.ArgumentParser()
 
-        for row in csvFile:
-            writeToCalendar(row)
-        
-        save()
+#-f FILE -wl LOCATION
+parser.add_argument("-f", "--file", dest="file", help="CSV file")
+parser.add_argument("-wl", "--worklocation", dest="worklocation", help="Work location")
+
+args = parser.parse_args()
+
+def main():
+    if args.worklocation:
+        changeOption("worklocation", args.worklocation)
+
+    if args.file:
+        file_name = args.file
+
+        with open(file_name, mode = "r") as file:
+            csvFile = csv.DictReader(file)
+
+            if not path.exists("options.json"):
+                shutil.copy("defaultOptions.json", "options.json")
+
+            for row in csvFile:
+                writeToCalendar(row)
+            
+            save()
 
     return
 
+
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("You must provide a file to operate on.")
-    else:
-        main(sys.argv[1])
+    main()

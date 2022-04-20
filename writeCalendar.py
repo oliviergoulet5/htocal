@@ -4,6 +4,7 @@ from datetime import datetime, timezone, tzinfo
 from pytz import timezone
 import re
 import os
+import json
 
 cal = Calendar()
 
@@ -62,8 +63,11 @@ def writeToCalendar(row):
     hh, mm = parseTime(row["Shift End"])
     end_date = end_date.replace(hour=hh, minute=mm)
     event.add("dtend", end_date)
+
+    f = open("options.json")
+    options = json.load(f)
     
-    event["location"] = vText("Purcell's Freshmart")
+    event["location"] = vText(options["worklocation"])
 
     # Add event to calenar
     cal.add_component(event)
