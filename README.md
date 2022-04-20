@@ -7,13 +7,18 @@ This python script can duplicate your work schedule from a CSV file to an Apple 
 Perhaps in the future I could add customizability to it.
 
 ### How to use
-1. Run `htocal` from its directory. You must specify the CSV file as its command line argument.
+1. Run `htocal` from its directory. You must specify the CSV file as its command line argument `-f`.
 
-For example: `htocal hours.csv`
+For example: `htocal -f hours.csv`
 
 2. This command will generate an ICS file which will appear in the output directory within the htocal directory.
 
 3. Open the ICS file to add it to Apple's Calendar app.
+
+##### Command Line Arguments
+`-f`, `--file`: The CSV file which contains your hours.
+
+`-wl`, `--worklocation`: The address of your workplace. This argument must only be specified once because it will persist to the config file.
 
 ### Constraints
 Your CSV must have the following columns:
