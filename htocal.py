@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import csv
 from writeCalendar import writeToCalendar, save
